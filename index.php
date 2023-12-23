@@ -23,20 +23,25 @@ if(!isset($_SESSION['first_visit']))
 
 
 <!DOCTYPE html>
+<head>
+	<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="container glassbox">
+		<h2>lancr.</h2>
+		<form method="post">
 
-<h2>-- Lancr --</h2>
+		<label for="uname">User Name:</label><br>
+		<input type="text" id="uname" name="username"><br>
 
-<form method="post">
-	
-  <label for="uname">User Name:</label><br>
-  <input type="text" id="uname" name="username"><br>
-  
-  <label for="passwd">Password:</label><br>
-  <input type="password" id="passwd" name="password"><br><br>
-  
-  <input type="submit" formaction="login.php" value="Log In"><br>
-  <input type="submit" formaction="register.php" value="Register"><br>
-</form>
+		<label for="passwd">Password:</label><br>
+		<input type="password" id="passwd" name="password"><br><br>
+
+		<input type="submit" formaction="login.php" value="Log In"><br>
+		<input type="submit" formaction="register.php" value="Register"><br>
+		</form>
+	</div>
+</body>
 
 
 
@@ -48,7 +53,7 @@ function initdb()
 		foreach ([
 		
 		//User table
-		'CREATE TABLE "User" (
+		'CREATE TABLE "Users" (
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			"name" VARCHAR,
 			"password" VARCHAR,
@@ -58,7 +63,7 @@ function initdb()
 		)',
 		
 		//Gig table
-		'CREATE TABLE "Gig" (
+		'CREATE TABLE "Gigs" (
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			"ownerid" INTEGER NOT NULL,
 			"description" VARCHAR,
@@ -69,7 +74,7 @@ function initdb()
 		)', 
 		
 		//Order table
-		'CREATE TABLE "Order" (
+		'CREATE TABLE "Orders" (
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			"gigid" INTEGER NOT NULL,
 			"sellerid" INTEGER NOT NULL,
@@ -83,7 +88,7 @@ function initdb()
 		)',
 		
 		//Message table
-		'CREATE TABLE "Message" (
+		'CREATE TABLE "Messages" (
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			"senderid" INTEGER NOT NULL,
 			"receiverid" INTEGER NOT NULL,
@@ -94,7 +99,7 @@ function initdb()
 		)',
 		
 		//Review table
-		'CREATE TABLE "Review" (
+		'CREATE TABLE "Reviews" (
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			"raterid" INTEGER NOT NULL,
 			"ratedid" INTEGER NOT NULL,
@@ -105,7 +110,7 @@ function initdb()
 		)',
 		
 		//Category table
-		'CREATE TABLE "Category" (
+		'CREATE TABLE "Categories" (
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			"name" VARCHAR NOT NULL
 		)',
