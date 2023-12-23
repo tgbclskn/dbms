@@ -11,7 +11,7 @@
 		
 		$db = new SQLite3('db.sqlite', SQLITE3_OPEN_READWRITE);
 		
-		$q = 'INSERT INTO "User" (name, password, location, about) 
+		$q = 'INSERT INTO Users (name, password, location, about) 
 		values("' 
 		. $_POST['username'] . '", "'
 		. $_POST['password'] . '", "'
