@@ -29,7 +29,7 @@
 	{
 			$db = new SQLite3('db.sqlite', SQLITE3_OPEN_READONLY);
 			
-			$q = 'SELECT * FROM Moderators M, User U
+			$q = 'SELECT * FROM Moderators M, Users U
 						WHERE M.userid == U.id
 						AND U.name == "' . $_SESSION['user'] . '"';
 			
