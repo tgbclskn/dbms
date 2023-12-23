@@ -6,12 +6,12 @@
 	
 	/* Fetch owner id */
 	$db = new SQLite3('db.sqlite');
-	$handler = $db->query('SELECT id FROM User U
+	$handler = $db->query('SELECT id FROM Users U
 						  WHERE U.name == "' . $_SESSION['user'] . '"');
 	$ownerid = $handler->fetchArray()['id'];
 	
 	$q = '
-		DELETE FROM Gig
+		DELETE FROM Gigs
 		WHERE id =' . $id . ' 
 		AND ownerid =' . $ownerid
 		;
