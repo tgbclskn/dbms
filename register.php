@@ -23,7 +23,7 @@
 	
 	$db = new SQLite3('db.sqlite', SQLITE3_OPEN_READONLY);
 	
-	$q = 'SELECT * FROM "User" WHERE name == "' 
+	$q = 'SELECT * FROM Users WHERE name == "' 
 	. $_POST['username'] . '"';
 	//echo $q;
 	
@@ -54,7 +54,7 @@
 			<input type="text" id="about" name="about"><br>
 			
 			<br><input type="submit" formaction="firstlogin.php" 
-			value="complete registration"><br>
+			value="Complete Registration"><br>
 		</form>
 		
 		';
