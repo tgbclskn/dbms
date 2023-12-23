@@ -23,7 +23,7 @@
 	
 	$db = new SQLite3('db.sqlite', SQLITE3_OPEN_READONLY);
 	
-	$q = 'SELECT * FROM "User" WHERE name == "' 
+	$q = 'SELECT * FROM Users WHERE name == "' 
 	. $_POST['username'] . '" AND password == "' . $_POST['password']
 	. '"';
 	//echo $q;
