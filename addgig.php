@@ -7,13 +7,13 @@
 	
 	/* Fetch owner id */
 	$db = new SQLite3('db.sqlite');
-	$handler = $db->query('SELECT id FROM User U
+	$handler = $db->query('SELECT id FROM Users U
 						  WHERE U.name == "' . $_SESSION['user'] . '"');
 	$ownerid = $handler->fetchArray()['id'];
 	
 	
 	/* Fetch category id */
-	$handler = $db->query('SELECT id FROM Category C
+	$handler = $db->query('SELECT id FROM Categories C
 						 WHERE C.name == "' . $_POST['category'] . '"');
 	$result = $handler->fetchArray();
 	
@@ -30,7 +30,7 @@
 	
 	$q = '
 		INSERT INTO 
-			"Gig"(ownerid, description, categoryid, price, isactive)
+			Gigs(ownerid, description, categoryid, price, isactive)
 		values(' . $ownerid . ', "' . 
 				   $desc . '", ' . 
 				   $catid . ', ' . 
