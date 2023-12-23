@@ -1,6 +1,6 @@
 <?php
 	$q = '
-		INSERT INTO "Category"(name)
+		INSERT INTO Categories(name)
 		values("' . $_POST['cat'] . '")
 		';
 	$db = new SQLite3('db.sqlite');
