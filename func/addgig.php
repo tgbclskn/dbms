@@ -1,12 +1,16 @@
 <?php
 	session_start();
 	
+	if(!isset($_POST['desc']))
+		exit();
+	
+	
 	$desc = $_POST['desc'];
 	$price = $_POST['price'];
 	
 	
 	/* Fetch owner id */
-	$db = new SQLite3('db.sqlite');
+	$db = new SQLite3('../db.sqlite');
 	$handler = $db->query('SELECT id FROM Users U
 						  WHERE U.name == "' . $_SESSION['user'] . '"');
 	$ownerid = $handler->fetchArray()['id'];
@@ -21,7 +25,7 @@
 	if($result == false)
 	{
 			echo 'Unknown category.';
-			echo '<br><a href="gigenter.php">back</a>';
+			echo '<br><a href="../page/gigenter.php">back</a>';
 			$db->close();
 			exit();
 	}
@@ -41,5 +45,5 @@
 	//echo $q;
 	$db->query($q);
 	$db->close();
-	header('Location: gigs.php');
+	header('Location: ../page/gigs.php');
 ?>

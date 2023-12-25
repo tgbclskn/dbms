@@ -1,14 +1,14 @@
 <?php
 	session_start();
 	
-	if($_SESSION['user'] == "")
+	if(!isset($_SESSION['user']))
 		{
 			echo 'You are not logged in.';
 			echo '<br><a href="index.php">go back</a>';
 			exit();
 		}
 		
-	$db = new SQLite3('db.sqlite');
+	$db = new SQLite3('../db.sqlite');
 ?>
 
 
@@ -17,7 +17,7 @@
 <a href="profile.php">Profile&nbsp;</a>
 <a href="gigs.php">My Gigs&nbsp;</a>
 <a href="orders.php">My Orders&nbsp;</a>
-<a href="logout.php">Log out&nbsp;</a>
+<a href="../func/logout.php">Log out&nbsp;</a>
 <?php echo $_SESSION['user']?>
 <br><br>
 
@@ -31,7 +31,7 @@
 	
 	
 	/**/
-	$db = new SQLite3('db.sqlite');
+	$db = new SQLite3('../db.sqlite');
 	$result = $db->query('SELECT * FROM Users');
 	echo '<pre><br><br><br><br>db (User):<br>';
 	while(true)

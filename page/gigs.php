@@ -1,13 +1,20 @@
 <?php
 	session_start();
 	
+	if(!isset($_SESSION['user']))
+		{
+			echo 'You are not logged in.';
+			echo '<br><a href="index.php">go back</a>';
+			exit();
+		}
+	
 	echo '<a href=gigenter.php>Add gig&nbsp; </a>';
 	echo '<a href=mainpage.php>Mainpage</a>';
 	echo '<h3>-- My gigs --</h3><br><br>';
 	
 	
 	/* List gigs belonging to user */
-	$db = new SQLite3('db.sqlite', SQLITE3_OPEN_READONLY);
+	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READONLY);
 	$queryhandler = $db->query('
 					SELECT G.description,
 						   G.price,
@@ -35,7 +42,7 @@
 					$nextgig['price']
 		. '<br>
 		
-		<a href="gigrem.php?id=' . $nextgig['id'] 
+		<a href="../func/gigrem.php?id=' . $nextgig['id'] 
 		. '">Remove</a><br><br>';
 		$i = $i + 1;
 	}

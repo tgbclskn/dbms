@@ -1,12 +1,19 @@
 <?php
 	session_start();
 	
+	if(!isset($_SESSION['user']))
+		{
+			echo 'You are not logged in.';
+			echo '<br><a href="index.php">go back</a>';
+			exit();
+		}
+		
 	echo '<a href=mainpage.php>Mainpage</a>';
 	echo '<h3>-- My orders --</h3><br><br>';
 	
 	
 	/* List all orders */
-	$db = new SQLite3('db.sqlite');
+	$db = new SQLite3('../db.sqlite');
 	
 	
 	$q = '
@@ -54,7 +61,7 @@
 		. '<br>&emsp;Due Date: ' 
 				  . $nextorder['enddate'] . '<br>
 		
-		<a href="orderrem.php?id=' 
+		<a href="../func/orderrem.php?id=' 
 					. $nextorder['orderid'] 
 						. '">Cancel Order</a><br><br>';
 		$i = $i + 1;

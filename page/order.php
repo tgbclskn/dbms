@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<h4>-Order Detail-</h4>
 
 <?php
 	session_start();
+	
+	if(!isset($_SESSION['user']))
+		{
+			echo 'You are not logged in.';
+			echo '<br><a href="index.php">go back</a>';
+			exit();
+		}
+		
+	if(!isset($_GET['id']))
+		exit();
+?>
+<h4>-Order Detail-</h4>
+<?php
+	
 	$gigid = $_GET['id'];
 	
 	/* Fetch gig information */
-	$db = new SQLite3('db.sqlite', SQLITE3_OPEN_READONLY);
+	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READONLY);
 	
 	$q = '
 			SELECT U.name 		 as 	user,
@@ -56,7 +69,7 @@
 			<input type="date" id="enddate" name="enddate"><br>
 			
 			<input 
-			type="submit" formaction="addorder.php?
+			type="submit" formaction="../func/addorder.php?
 											buyer=' . $userid . '&
 											seller='. $gigsellerid . '&
 											gig=' .   $gigid . '" 

@@ -1,6 +1,10 @@
 <?php
 	session_start();
-	$db = new SQLite3('db.sqlite');
+	
+	if(!isset($_SESSION['user']) || !isset($_GET['id']))
+		exit();
+	
+	$db = new SQLite3('../db.sqlite');
 	
 	/* Refuse if not owner of the order */
 	$q = '
@@ -19,5 +23,5 @@
 	
 	$db->query('DELETE FROM Orders WHERE Orders.id = ' . $_GET['id']);
 	$db->close();
-	header('Location: orders.php');
+	header('Location: ../page/orders.php');
 ?>

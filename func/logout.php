@@ -3,6 +3,6 @@
 	session_destroy();
 	session_start();
 	$_SESSION = array("first_visit" => false);
-	header('Location: index.php');
+	header('Location: ../page/index.php');
 
 ?>
