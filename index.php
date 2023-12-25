@@ -1,6 +1,7 @@
 <?php
+	/* test */
 	session_start();
-	
+		
 	
 /* If already logged in, redirect */
 if(isset($_SESSION['user']))
