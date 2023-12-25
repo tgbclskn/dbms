@@ -114,11 +114,24 @@
 		
 		$q = 
 		'
-		DELETE FROM Categories
+		SELECT id FROM Categories
 		WHERE name = "' . $_POST['cattodelete'] . '"
 		';
-				
-		$db->query($q);
+		$id = $db->query($q)->fetchArray()['id'];
+		
+		$q =
+		'
+		DELETE FROM gigs
+		WHERE categoryid = ' . $id
+		;
+		$db->exec($q);
+		
+		$q = 
+		'
+		DELETE FROM Categories
+		WHERE id = ' . $id
+		;
+		$db->exec($q);
 		$db->close();
 	}
 	
