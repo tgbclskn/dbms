@@ -5,7 +5,6 @@
 
 <?php 
 	session_start();
-	
 	if(isset($_SESSION['user']))
 		{
 			echo 'You are already logged in.';
@@ -26,8 +25,9 @@
 <?php
 	
 	/* Do not accept if either username or password is empty */
-	if($_POST['username'] == "" || 
-	   $_POST['password'] == "")
+	if(!isset($_POST['username']) ||
+		$_POST['username'] == "" || 
+		$_POST['password'] == "")
 	{
 			echo 
 			'<div class="container glassbox">
@@ -62,7 +62,7 @@
 		
 		echo '
 		<div class="container glassbox">
-			<form method="post">
+			<form enctype="multipart/form-data" method="post">
 				<label for="uname">User Name:</label><br>
 				<input type="text" id="uname" name="username" value="' 
 				. $_POST['username'] . '"><br>
@@ -75,9 +75,13 @@
 				<input type="text" id="location" name="location"><br>
 			
 				<label for="about">About:</label><br>
-				<input type="text" id="about" name="about"><br>
+				<input type="text" id="about" name="about"><br><br>
+				
+				<label for="pp">Profile Picture:</label><br>
+				<input type="file" id="pp" name="pp" accept="image/png, 
+															image/jpeg">
 			
-				<br><input type="submit" formaction="firstlogin.php" 
+				<br><br><input type="submit" formaction="firstlogin.php" 
 				value="Complete Registration"><br>
 			</form>
 		</div>

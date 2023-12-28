@@ -9,7 +9,7 @@
 		}
 		
 	echo '<a href=mainpage.php>Mainpage</a>';
-	echo '<h3>-- My orders --</h3><br><br>';
+	echo '<h3>-- My orders --</h3>';
 	
 	
 	/* List all orders */
@@ -17,13 +17,14 @@
 	
 	
 	$q = '
-					SELECT G.description as gigdesc,
-						   G.price as gigprice,
-						   G.id as gigid,
-						   C.name as categoryname,
-						   Seller.name as gigsellername,
-						   O.enddate as enddate,
-						   O.id as orderid 
+					SELECT G.description	as	gigdesc,
+						   G.price			as	gigprice,
+						   G.id				as	gigid,
+						   C.name			as	categoryname,
+						   Seller.name		as	gigsellername,
+						   O.enddate		as	enddate,
+						   Seller.picture	as	picture,
+						   O.id				as	orderid 
 						   
 					FROM Gigs G,
 						 Users Seller,
@@ -40,7 +41,6 @@
 
 	$queryhandler = $db->query($q);
 	
-	$i = 1;
 	while(true)
 	{
 		$nextorder = $queryhandler->fetchArray();
@@ -50,21 +50,23 @@
 		
 		$sellername = $nextorder['gigsellername'];
 		
-		echo $i . 
-		'-<br>&emsp;@' . $sellername . '' 
-		. '<br>&emsp;Desc: ' . 
-					$nextorder['gigdesc'] 
-		. '<br>&emsp;Category: ' . 
-					$nextorder['categoryname'] 
-		. '<br>&emsp;Price: ' . 
-					$nextorder['gigprice']
-		. '<br>&emsp;Due Date: ' 
-				  . $nextorder['enddate'] . '<br>
+		echo  
+		'<a href="profile.php?
+				user=' . $sellername . '">@' . $sellername . '</a><br>'
+		. '<img style="max-height: 100px;max-width: 100px;"
+				  src="../pictures/' . $nextorder['picture'] . '"><br>' 
+		. 'Description: '
+		. 	$nextorder['gigdesc'] . '<br>' 
+		. 'Category: '
+		. 	$nextorder['categoryname'] . '<br>' 
+		. 'Price: '
+		. 	$nextorder['gigprice'] . '<br>' 
+		. 'Due Date:'
+		. 	$nextorder['enddate'] . '<br>
 		
 		<a href="../func/orderrem.php?id=' 
 					. $nextorder['orderid'] 
 						. '">Cancel Order</a><br><br>';
-		$i = $i + 1;
 	}
 	 $db->close();
 ?>

@@ -1,3 +1,81 @@
+<!DOCTYPE html>
+
 <?php
-	echo 'todo';
+	include '../include/listgig_profile.php';
+	session_start();
+	
+	if(!isset($_SESSION['user']))
+		{
+			header('Location: index.php');
+			exit();
+		}
+		
+	$db = new SQLite3('../db.sqlite');
+
+	if(!isset($_GET['user']))
+		$get_this_user = $_SESSION['user'];
+	else
+		$get_this_user = $_GET['user'];
+		
+	$q = 
+	'
+		SELECT name,location,about,picture 
+		FROM Users 
+		WHERE name = "' . $get_this_user . '"
+	';
+	
+	$handler = $db->query($q);
+	$userinfo = $handler->fetchArray();
+	if($userinfo == false)
+	{
+			echo 'No such user.';;
+			exit();
+	}
+	
+	$username = $userinfo['name'];
+	$location = $userinfo['location'];
+	$about = $userinfo['about'];
+	$picture = $userinfo['picture'];
+	
+		
+?>
+
+<a href="mainpage.php">Mainpage&nbsp;</a>
+<a href="message.php">Message&nbsp;</a>
+<a href="profile.php">Profile&nbsp;</a>
+<a href="gigs.php">My Gigs&nbsp;</a>
+<a href="orders.php">My Orders&nbsp;</a>
+<a href="../func/logout.php">Log out&nbsp;</a><br><br>
+
+<img
+	src="../pictures/<?php echo $picture;?>"
+	style="max-height: 150px;max-width: 250px;"
+	border="3px"
+><br>
+
+<?php
+	echo $username;
+?>
+<br>
+<?php
+	echo $location;
+?>
+<br>
+<?php
+	echo $about;
+?>
+
+<?php
+	if($_SESSION['user'] != $username)
+	{
+		echo '<br><a href="message.php?user=' . $username 
+		. '">Message this user</a>';
+	}
+?>
+
+<h3>-- Top 3 latest gigs --</h3>
+
+<?php
+	listgig(3, $db, $username);
+
 ?>
