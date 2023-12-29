@@ -16,7 +16,7 @@
 		}
 		
 		
-	/* Admin functions */
+	/*		Admin functions		*/
 	
 	/* Delete Session */
 	if(isset($_GET['deletesession']))
@@ -25,6 +25,7 @@
 		header('Location: index.php');	
 		exit();
 	}
+	
 	/* Delete DB */
 	if(isset($_GET['deletedb']))
 	{
@@ -38,6 +39,7 @@
 		echo '<br><a href="admin.php">go back</a>';
 		exit();
 	}
+	
 	/* Create DB */
 	if(isset($_GET['createdb']))
 	{
@@ -54,6 +56,7 @@
 				
 			exit();
 	}
+	
 	/* Add category */
 	if(isset($_GET['addcategory']))
 	{
@@ -88,6 +91,7 @@
 		$db->query($q);
 		$db->close();
 	}
+	
 	/* Delete category */
 	if(isset($_GET['delcategory']))
 	{
@@ -187,6 +191,7 @@ function isPrivileged()
 
 function getCategoryFuncIfDbExists() : String 
 {
+	/* Show add/remove category options only when DB exists */
 	if(file_exists('../db.sqlite'))
 	{
 		$s = 

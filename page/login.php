@@ -6,6 +6,7 @@
 <?php 
 	session_start();
 	
+	/* -> User is already logged in */
 	if(isset($_SESSION['user']))
 		{
 			echo 'You are already logged in.';
@@ -13,7 +14,7 @@
 			exit();
 		}
 	
-	/* Master admin account */
+	/* Log in as admin if admin credentials are given */
 	if($_POST['username'] == "admin" && 
 	   $_POST['password'] == "admin")
 	{
@@ -21,6 +22,7 @@
 			header('Location: admin.php');
 	}
 	
+	/* -> DB file does not exist */
 	if(!file_exists('../db.sqlite'))
 	{
 			echo 
@@ -33,7 +35,7 @@
 
 <?php
 
-	/* Do not accept if either username or password is empty */
+	/* -> Either username or password is empty */
 	if($_POST['username'] == "" || 
 	   $_POST['password'] == "")
 	{
@@ -48,6 +50,7 @@
 	
 	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READONLY);
 	
+	/* Check credentials */
 	$q = 'SELECT * FROM Users WHERE name == "' 
 	. $_POST['username'] . '" AND password == "' . $_POST['password']
 	. '"';
@@ -55,12 +58,14 @@
 	$result = $db->query($q);
 	
 	
-	/* Check username and password */
+	/* -> No account with specified username and password */
 	if($result->fetchArray() == false)
 	{
 			echo '<div class="container glassbox">Failed to log in<br>
 				  <a href="index.php">go back</a></div>';
 	}
+	
+	/* Otherwise log in */
 	else
 	{
 			$_SESSION['user'] = $_POST['username'];

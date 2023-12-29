@@ -14,8 +14,10 @@ if(isset($_SESSION['user']))
 		else
 			header('Location: admin.php');
 	}
-?>
 
+
+/* -> Not logged in, ask credentials */
+?>
 <body>
 	<div class="container glassbox">
 		<h2>lancr.</h2>

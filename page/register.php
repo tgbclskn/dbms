@@ -5,6 +5,8 @@
 
 <?php 
 	session_start();
+	
+	/* -> User is already logged in */
 	if(isset($_SESSION['user']))
 		{
 			echo 'You are already logged in.';
@@ -12,6 +14,7 @@
 			exit();
 		}
 	
+	/* -> DB file does not exist */
 	if(!file_exists('../db.sqlite'))
 	{
 			echo 
@@ -20,11 +23,8 @@
 			<a href="index.php">go back</a></div>';
 			exit();
 	}
-?>
-
-<?php
 	
-	/* Do not accept if either username or password is empty */
+	/* -> Either username or password is empty */
 	if(!isset($_POST['username']) ||
 		$_POST['username'] == "" || 
 		$_POST['password'] == "")
@@ -36,7 +36,7 @@
 			exit();
 	}
 	
-	/* The name "admin" is reserved */
+	/* -> The name "admin" is reserved */
 	if($_POST['username'] == "admin")
 	{
 			echo 
@@ -46,18 +46,19 @@
 			exit();
 	}
 	
+	
 	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READONLY);
 	
+	
+	/* Check if username exists in the DB */
 	$q = 'SELECT * FROM Users WHERE name == "' 
 							. $_POST['username'] . '"';
 	
 	$result = $db->query($q);
 	
-	
-	/* Check if username exists in the DB */
 	if($result->fetchArray() == false)
 	
-	/* New user, ask other information */
+	/* -> New user, ask other information */
 	{
 		
 		echo '
@@ -88,7 +89,7 @@
 		';
 	}
 	
-	/* Cannot register same username twice */
+	/* -> Username is already registered */
 	else
 	{
 			echo 

@@ -1,4 +1,7 @@
+<!DOCTYPE html>
+
 <?php
+
 	session_start();
 	
 	/* -> User is already logged in */
@@ -8,8 +11,7 @@
 			echo '<br><a href="index.php">go back</a>';
 			exit();
 		}
-		
-		
+	
 ?>
 
 <a href="mainpage.php">Mainpage&nbsp;</a>
@@ -17,23 +19,22 @@
 <a href="profile.php">Profile&nbsp;</a>
 <a href="gigs.php">My Gigs&nbsp;</a>
 <a href="orders.php">My Orders&nbsp;</a>
-<a href="pendingorders.php">Pending Orders&nbsp;</a>
+<a href="orders.php">Pending Orders&nbsp;</a>
 <a href="../func/logout.php">Log out&nbsp;</a><br><br>
-<h3>-- My orders --</h3>
+<h3>-- Pending Orders --</h3>
 
-<?php
+<?php	
 	
-	$db = new SQLite3('../db.sqlite');
-	
+	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READONLY);
 	
 	$q = '
 					SELECT G.description	as	gigdesc,
 						   G.price			as	gigprice,
 						   G.id				as	gigid,
 						   C.name			as	categoryname,
-						   Seller.name		as	gigsellername,
+						   Buyer.name		as	buyer,
 						   O.enddate		as	enddate,
-						   Seller.picture	as	picture,
+						   Buyer.picture	as	picture,
 						   O.id				as	orderid 
 						   
 					FROM Gigs G,
@@ -42,13 +43,14 @@
 						 Categories C,
 						 Orders O 
 						 
-					WHERE Buyer.name = "' . $_SESSION['user'] . '" AND
+					WHERE Seller.name = "' . $_SESSION['user'] . '" AND
 						  O.buyerid = Buyer.id AND 
 						  O.sellerid = Seller.id AND 
 						  O.gigid = G.id AND 
 						  G.categoryid = C.id
-						  ';
-
+			';
+			
+	
 	$queryhandler = $db->query($q);
 	
 	while(true)
@@ -58,24 +60,28 @@
 		if($nextorder == false)
 			break;
 		
-		$sellername = $nextorder['gigsellername'];
+		$buyername = $nextorder['buyer'];
 		
+		if(strlen($nextorder['gigdesc']) > 20)
+			$dot = "...";
+		else
+			$dot = "";
+			
 		echo  
 		'<a href="profile.php?
-				user=' . $sellername . '">@' . $sellername . '</a><br>'
+				user=' . $buyername . '">@' . $buyername . '</a><br>'
 		. '<img style="max-height: 100px;max-width: 100px;"
 				  src="../pictures/' . $nextorder['picture'] . '"><br>' 
 		. 'Description: '
-		. 	$nextorder['gigdesc'] . '<br>' 
-		. 'Category: '
-		. 	$nextorder['categoryname'] . '<br>' 
+		. 	substr($nextorder['gigdesc'], 0, 20) . $dot . '<br>'  
 		. 'Price: '
 		. 	$nextorder['gigprice'] . '<br>' 
 		. 'Due Date:'
 		. 	$nextorder['enddate'] . '<br>
 		
-		<a href="../func/orderrem.php?id=' 
-					. $nextorder['orderid'] 
+		<a href="../func/orderrem.php?id=' . $nextorder['orderid'] 
+						. '">Submit Order</a><br>
+		<a href="../func/orderrem.php?id=' . $nextorder['orderid'] 
 						. '">Cancel Order</a><br><br>';
 	}
 	 $db->close();

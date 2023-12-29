@@ -6,16 +6,19 @@
 	
 	$db = new SQLite3('../db.sqlite');
 	
-	/* Refuse if not owner of the order */
+	/* Refuse if not seller or buyer of the specified order */
 	$q = '
 		SELECT *
 		
-		FROM Users U,
+		FROM Users Buyer,
+			 Users Seller,
 			 Orders O
 		
 		WHERE O.id = ' . $_GET['id'] . ' AND 
-			  O.buyerid = U.id AND
-			  U.name = "' . $_SESSION['user'] . '"
+			  O.buyerid = Buyer.id AND
+			  O.sellerid = Seller.id AND
+			  (Buyer.name = "' . $_SESSION['user'] . '" OR 
+			  Seller.name = "' . $_SESSION['user'] . '")
 	';
 	
 	if($db->query($q)->fetchArray() == false)
@@ -23,5 +26,8 @@
 	
 	$db->query('DELETE FROM Orders WHERE Orders.id = ' . $_GET['id']);
 	$db->close();
-	header('Location: ../page/orders.php');
+	if(isset($_SERVER['HTTP_REFERER']))
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
+	else
+		header('Location: ../page/mainpage.php');
 ?>

@@ -6,6 +6,7 @@
 <?php
 		session_start();
 		
+		/* -> User is already logged in */
 		if(isset($_SESSION['user']))
 		{
 			echo 'You are already logged in.';
@@ -13,8 +14,9 @@
 			exit();
 		}
 		
-		/* Illegal access */
-		if($_POST['username'] == "" ||
+		/* -> Illegal access */
+		if(!isset($_POST['username']) || 
+		   $_POST['username'] == "" ||
 		   $_POST['password'] == "")
 		{
 			echo '<br>You cannot do that.';
@@ -24,11 +26,13 @@
 		
 		
 		
-		// Picture is uploaded
+		// Handle picture upload
 		if($_FILES['pp']['error'] == 0)
 		{
 			$picture_extension 
 				= pathinfo($_FILES['pp']['name'], PATHINFO_EXTENSION);
+			
+			/* Find unique name for the picture file on the server */
 			do 
 			{
 				$new_picture_name 
@@ -41,12 +45,14 @@
 			move_uploaded_file
 				($_FILES['pp']['tmp_name'], $new_picture_dir);
 		}
-		// No picture was uploaded
+		
+		// -> No picture was uploaded
 		elseif ($_FILES['pp']['error'] == 4)
 		{
 			$new_picture_name = 'default.png';
 		}
-		// Picture exceeds maximum file size
+		
+		// -> Picture exceeds maximum file size
 		elseif ($_FILES['pp']['error'] == 1 || 
 				$_FILES['pp']['error'] == 2)
 		{
@@ -55,6 +61,8 @@
 			<a href="index.php">go back</a></div>';
 				exit();
 		}
+		
+		/* -> Upload failed */
 		elseif ($_FILES['pp']['error'] == 3)
 		{
 				echo '<div class="container glassbox">
@@ -62,6 +70,8 @@
 			<a href="index.php">go back</a></div>';
 				exit();
 		}
+		
+		/* -> Other error */
 		else
 		{
 				echo '<div class="container glassbox">
@@ -74,6 +84,7 @@
 		$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READWRITE);
 				
 		
+		/* Insert registered user information into the DB */
 		$q = 
 		'INSERT INTO Users 
 		(name, password, location, about,picture) 
@@ -87,6 +98,8 @@
 		
 		$db->query($q);
 		
+		
+		/* Log in as the registered user */
 		$_SESSION['user'] = $_POST['username'];
 		
 		$db->close();
