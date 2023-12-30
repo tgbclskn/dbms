@@ -9,8 +9,8 @@ function initdb()
 		//User table
 		'CREATE TABLE "Users" (
 			"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-			"name" VARCHAR,
-			"password" VARCHAR,
+			"name" VARCHAR UNIQUE NOT NULL,
+			"password" VARCHAR NOT NULL,
 			"location" VARCHAR,
 			"about" VARCHAR,
 			"picture" VARCHAR
@@ -22,9 +22,9 @@ function initdb()
 			"ownerid" INTEGER NOT NULL,
 			"description" VARCHAR,
 			"categoryid" INTEGER NOT NULL,
-			"price" VARCHAR,
-			"isactive" INTEGER,
+			"price" VARCHAR NOT NULL,
 			FOREIGN KEY(ownerid) REFERENCES User(id)
+			FOREIGN KEY(categoryid) REFERENCES Categories(id)
 		)', 
 		
 		//Order table
@@ -36,6 +36,9 @@ function initdb()
 			"startdate" VARCHAR,
 			"enddate" VARCHAR,
 			"payment" VARCHAR,
+			"isactive" INTEGER,
+			"file" VARCHAR,
+			"completeddate" VARCHAR,
 			FOREIGN KEY(gigid) REFERENCES Gig(id),
 			FOREIGN KEY(sellerid) REFERENCES User(id),
 			FOREIGN KEY(buyerid) REFERENCES User(id)

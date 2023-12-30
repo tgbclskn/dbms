@@ -44,12 +44,16 @@
 	$picture = $userinfo['picture'];
 ?>
 
+<head>
+	<link href="../styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
 <a href="mainpage.php">Mainpage&nbsp;</a>
-<a href="message.php">Message&nbsp;</a>
 <a href="profile.php">Profile&nbsp;</a>
-<a href="gigs.php">My Gigs&nbsp;</a>
-<a href="orders.php">My Orders&nbsp;</a>
-<a href="pendingorders.php">Pending Orders&nbsp;</a>
+<a href="message.php">Message&nbsp;</a>
+<a href="gigs.php">Gigs&nbsp;</a>
+<a href="orders.php">Buys&nbsp;</a>
+<a href="pendingorders.php">Sells&nbsp;</a>
 <a href="../func/logout.php">Log out&nbsp;</a><br><br>
 
 <img

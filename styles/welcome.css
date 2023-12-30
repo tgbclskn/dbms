@@ -1,0 +1,67 @@
+:root {
+    --dark: rgb(20, 20, 20);
+
+    --c1: rgb(100, 20, 76);
+    --c2: rgb(230, 159, 53);
+
+    --left-color: var(--c1);
+    --right-color: var(--c2);
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(20, 20, 20);
+    margin: 0rem;
+    overflow: hidden;
+}
+
+.side {
+    display: grid;
+    height: 100vh;
+    overflow: hidden;
+    place-items: top;
+    position: absolute;
+    width: 100%;
+}
+
+.side .title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2vw;
+    font-weight: 800;
+    margin: 300px 35vw;
+    width: 80vw;
+}
+
+.side .fancy {
+    font-family: "Permanent Marker", cursive;
+    font-size: 1.8em;
+    line-height: 0.6em;
+}
+
+#left-side {
+    background-color: var(--left-color);
+    width: 60%;
+    z-index: 2;
+}
+
+#left-side .title {
+    color: white;
+}
+
+#left-side .fancy {
+    color: var(--right-color);
+}
+
+#right-side {
+    background-color: var(--right-color);
+}
+
+#right-side .title {
+    color: var(--dark);
+}
+
+#right-side .fancy {
+    color: white;
+}
+

@@ -10,7 +10,7 @@
 	
 	
 	/* Fetch owner id */
-	$db = new SQLite3('../db.sqlite');
+	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READWRITE);
 	$handler = $db->query('SELECT id FROM Users U
 						  WHERE U.name == "' . $_SESSION['user'] . '"');
 	$ownerid = $handler->fetchArray()['id'];
@@ -22,27 +22,27 @@
 	$result = $handler->fetchArray();
 	
 	
-	if($result == false)
+	/*if($result == false)
 	{
 			echo 'Unknown category.';
 			echo '<br><a href="../page/gigenter.php">back</a>';
 			$db->close();
 			exit();
-	}
+	}*/
 	$catid = $result['id'];
 	
 	
 	$q = '
 		INSERT INTO 
-			Gigs(ownerid, description, categoryid, price, isactive)
+			Gigs(ownerid, description, categoryid, price)
 		values(' . $ownerid . ', "' . 
 				   $desc . '", ' . 
 				   $catid . ', ' . 
-				   $price . 
-				   ', 1)
-		';
+				   $price . ')'
+		;
 	
 	//echo $q;
+	
 	$db->query($q);
 	$db->close();
 	header('Location: ../page/gigs.php');

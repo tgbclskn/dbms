@@ -4,7 +4,7 @@
 	if(!isset($_SESSION['user']) || !isset($_GET['id']))
 		exit();
 	
-	$db = new SQLite3('../db.sqlite');
+	$db = new SQLite3('../db.sqlite' SQLITE3_OPEN_READWRITE);
 	
 	/* Refuse if not seller or buyer of the specified order */
 	$q = '

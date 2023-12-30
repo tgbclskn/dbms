@@ -14,14 +14,18 @@
 	
 ?>
 
+<head>
+	<link href="../styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
 <a href="mainpage.php">Mainpage&nbsp;</a>
-<a href="message.php">Message&nbsp;</a>
 <a href="profile.php">Profile&nbsp;</a>
-<a href="gigs.php">My Gigs&nbsp;</a>
-<a href="orders.php">My Orders&nbsp;</a>
-<a href="orders.php">Pending Orders&nbsp;</a>
+<a href="message.php">Message&nbsp;</a>
+<a href="gigs.php">Gigs&nbsp;</a>
+<a href="orders.php">Buys&nbsp;</a>
+<a href="pendingorders.php">Sells&nbsp;</a>
 <a href="../func/logout.php">Log out&nbsp;</a><br><br>
-<h3>-- Pending Orders --</h3>
+<h3>-- Pending --</h3>
 
 <?php	
 	
@@ -47,7 +51,8 @@
 						  O.buyerid = Buyer.id AND 
 						  O.sellerid = Seller.id AND 
 						  O.gigid = G.id AND 
-						  G.categoryid = C.id
+						  G.categoryid = C.id AND
+						  O.isactive = 1
 			';
 			
 	
@@ -79,8 +84,14 @@
 		. 'Due Date:'
 		. 	$nextorder['enddate'] . '<br>
 		
-		<a href="../func/orderrem.php?id=' . $nextorder['orderid'] 
-						. '">Submit Order</a><br>
+		<form enctype="multipart/form-data" method="post">
+		
+		<input type="submit" formaction="../func/uploadorderfile.php?orderid=' 
+											. $nextorder['orderid'] . '" 
+							 value="Finish Order">&emsp;&emsp;
+		<label for="submission">Select file: </label>
+		<input type="file" id="submission" name="submission">
+		</form>
 		<a href="../func/orderrem.php?id=' . $nextorder['orderid'] 
 						. '">Cancel Order</a><br><br>';
 	}

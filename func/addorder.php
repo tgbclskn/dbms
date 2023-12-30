@@ -6,17 +6,26 @@
 	   !isset($_POST['enddate']))
 		exit();
 	
-	$db = new SQLite3('../db.sqlite');
+	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READWRITE);
 	
 	$q = '
-		INSERT INTO Orders(gigid,sellerid,buyerid,enddate)
+		SELECT U.id as id 
+		FROM Users U 
+		WHERE U.name = "' . $_SESSION['user'] . '"';
+	
+	$buyerid = $db->query($q)->fetchArray()['id'];
+	$date = date("Y-m-d");
+	
+	$q = '
+		INSERT INTO Orders(gigid,sellerid,buyerid,enddate,startdate,isactive)
 		values(' . $_GET['gig'] 
 		   . ',' . $_GET['seller'] 
-		   . ',' . $_GET['buyer'] /* !!! */
-		   . ',"' . $_POST['enddate'] . '")	
+		   . ',' . $buyerid
+		   . ',"' . $_POST['enddate'] . '","' . $date . '",1)	
 	';
 	
-	$db->query($q);
+	$db->exec($q);
+	$db->close();
 	header('Location: ../page/orders.php');
-	
+	exit();
 ?>

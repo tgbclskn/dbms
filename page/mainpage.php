@@ -15,18 +15,31 @@
 
 
 <!DOCTYPE html>
-<a href="mainpage.php">Mainpage&nbsp;</a>
-<a href="message.php">Message&nbsp;</a>
-<a href="profile.php">Profile&nbsp;</a>
-<a href="gigs.php">My Gigs&nbsp;</a>
-<a href="orders.php">My Orders&nbsp;</a>
-<a href="pendingorders.php">Pending Orders&nbsp;</a>
-<a href="../func/logout.php">Log out&nbsp;</a>
-<?php echo $_SESSION['user']?><br><br>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Lancr.</title>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Permanent+Marker&display=swap" rel="stylesheet">
+        <!-- <link href="../styles/mainpage.css" type="text/css" rel="stylesheet">
+        -->
+	</head>
+	
+<body>
+<div id="menu">
+	<div id="menu-items">
+		<a href="mainpage.php">Mainpage&nbsp;</a>
+		<a href="profile.php">Profile&nbsp;</a>
+		<a href="message.php">Message&nbsp;</a>
+		<a href="gigs.php">Gigs&nbsp;</a>
+		<a href="orders.php">Buys&nbsp;</a>
+		<a href="pendingorders.php">Sells&nbsp;</a>
+		<a href="../func/logout.php">Log out&nbsp;</a>
+	</div>
+</div>
 
+<br><br>
 
-
-<b>-- Main Page --</b><br><br>
 <b>-- Latest gigs --</b><br><br>
 
 <?php
@@ -34,5 +47,5 @@
 	$db->close();
 ?>
 
-
-
+</body>
+</html>

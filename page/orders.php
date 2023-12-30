@@ -12,18 +12,22 @@
 		
 ?>
 
+<head>
+	<link href="../styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
 <a href="mainpage.php">Mainpage&nbsp;</a>
-<a href="message.php">Message&nbsp;</a>
 <a href="profile.php">Profile&nbsp;</a>
-<a href="gigs.php">My Gigs&nbsp;</a>
-<a href="orders.php">My Orders&nbsp;</a>
-<a href="pendingorders.php">Pending Orders&nbsp;</a>
+<a href="message.php">Message&nbsp;</a>
+<a href="gigs.php">Gigs&nbsp;</a>
+<a href="orders.php">Buys&nbsp;</a>
+<a href="pendingorders.php">Sells&nbsp;</a>
 <a href="../func/logout.php">Log out&nbsp;</a><br><br>
-<h3>-- My orders --</h3>
+<h3>-- Ongoing --</h3>
 
 <?php
 	
-	$db = new SQLite3('../db.sqlite');
+	$db = new SQLite3('../db.sqlite', SQLITE3_OPEN_READONLY);
 	
 	
 	$q = '
@@ -34,7 +38,9 @@
 						   Seller.name		as	gigsellername,
 						   O.enddate		as	enddate,
 						   Seller.picture	as	picture,
-						   O.id				as	orderid 
+						   O.id				as	orderid,
+						   O.isactive		as	isactive,
+						   O.completeddate	as	date
 						   
 					FROM Gigs G,
 						 Users Seller,
@@ -58,6 +64,9 @@
 		if($nextorder == false)
 			break;
 		
+		if($nextorder['isactive'] == 0)
+			continue;
+		
 		$sellername = $nextorder['gigsellername'];
 		
 		echo  
@@ -78,5 +87,37 @@
 					. $nextorder['orderid'] 
 						. '">Cancel Order</a><br><br>';
 	}
-	 $db->close();
+?>
+
+<br><h3>-- Completed --</h3>
+
+<?php
+while(true)
+	{
+		$nextorder = $queryhandler->fetchArray();
+		
+		if($nextorder == false)
+			break;
+		
+		if($nextorder['isactive'] == 1)
+			continue;
+		
+		$sellername = $nextorder['gigsellername'];
+		
+		echo  
+		'<a href="profile.php?
+				user=' . $sellername . '">@' . $sellername . '</a><br>'
+		. '<img style="max-height: 100px;max-width: 100px;"
+				  src="../pictures/' . $nextorder['picture'] . '"><br>' 
+		. 'Description: '
+		. 	$nextorder['gigdesc'] . '<br>' 
+		. 'Category: '
+		. 	$nextorder['categoryname'] . '<br>
+		Completed on: ' . $nextorder['date'] . ' ID: ' . $nextorder['orderid'] . '<br>
+		<a href="../func/download.php?orderid=' . $nextorder['orderid'] . '">Download</a><br><br>
+		';
+	}
+
+
+
 ?>
