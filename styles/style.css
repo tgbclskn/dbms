@@ -1,20 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
 body{
     overflow: hidden;
-    background: url(https://applemagazine.com/wp-content/uploads/2020/09/AppleMagazine-iPad-Air-Wallpaper-2020-2-2048x2048.png);
-    background-size: 100%;
-    background-position: center;
+    background: rgb(12,12,12)
 }
 
 h2{
     text-align: center;
+    color: beige;
 }
 
 form{
     text-align: center;
+    color: beige;
 }
 
 div{
     text-align: center;
+    color: beige;
+    font-family: "Montserrat", sans-serif;
 }
 
 .container{
@@ -30,4 +34,21 @@ div{
     border-radius: 20px;
     border:1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.label{
+    color: beige;
+}
+
+button{
+    padding: 9px 25px;
+    background-color: rgba(12,12,12,1);
+    border:none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+button:hover{
+    background-color: rgba(12,12,12,0.8);
 }
