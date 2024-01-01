@@ -80,7 +80,7 @@
 	/* Show message button if the profile is not his/her own */
 	if($_SESSION['user'] != $username)
 	{
-		echo '<br><a href="message.php?user=' . $username 
+		echo '<br><a href="message.php?to=' . $username 
 		. '">Message this user</a>';
 	}
 ?>
