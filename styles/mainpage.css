@@ -18,7 +18,7 @@ h1 {
 
 .menu-item {
     font-family: "Montserrat", sans-serif;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
     opacity: .3;
     font-size: clamp(2rem, 5vw, 8rem);
 

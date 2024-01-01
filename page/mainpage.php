@@ -16,27 +16,27 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Lancr.</title>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Permanent+Marker&display=swap" rel="stylesheet">
-        <!-- <link href="../styles/mainpage.css" type="text/css" rel="stylesheet">
-        -->
-	</head>
-	
+<head>
+	<meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
+	<title>Lancr.</title>
+	<link href="../styles/test.css" rel="stylesheet" type="text/css">
+</head>
+
 <body>
-<div id="menu">
-	<div id="menu-items">
-		<a href="mainpage.php">Mainpage&nbsp;</a>
-		<a href="profile.php">Profile&nbsp;</a>
-		<a href="message.php">Message&nbsp;</a>
-		<a href="gigs.php">Gigs&nbsp;</a>
-		<a href="orders.php">Buys&nbsp;</a>
-		<a href="pendingorders.php">Sells&nbsp;</a>
+<header>
+		<img class="logo" src="../favicon.ico" alt="logo" width=100 height=100/>
+		<nav>
+			<ul class="nav__links">
+				<li><a href="mainpage.php">Home&nbsp;</a></li>
+				<li><a href="profile.php">Profile&nbsp;</a></li>
+				<li><a href="message.php">Messages&nbsp;</a></li>
+				<li><a href="gigs.php">Gigs&nbsp;</a></li>
+				<li><a href="orders.php">Buys&nbsp;</a></li>
+				<li><a href="pendingorders.php">Sells&nbsp;</a></li>
+			</ul>
+		</nav>
 		<a href="../func/logout.php">Log out&nbsp;</a>
-	</div>
-</div>
+	</header>
 
 <br><br>
 
