@@ -21,7 +21,7 @@
 
 <body>
 <header>
-		<img class="logo" src="../favicon.ico" alt="logo" width=100 height=100/>
+		<img class="logo" src="../logo.svg" alt="logo" width=100 height=100/>
 		<nav>
 			<ul class="nav__links">
 				<li><a href="mainpage.php">Home&nbsp;</a></li>
@@ -34,7 +34,7 @@
 		</nav>
 		<a href="../func/logout.php">Log out&nbsp;</a>
 	</header>
-
+	<div class="container"> 
 <form method="post">
 	
   <label for="desc">Description:</label><br>
@@ -52,6 +52,7 @@
   <input type="number" id="price" name="price"><br><br>
   
   <input type="submit" formaction="../func/addgig.php" value="Add"><br>
+  </div>
 </form>
 
 

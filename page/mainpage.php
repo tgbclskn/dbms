@@ -24,7 +24,7 @@
 
 <body>
 <header>
-		<img class="logo" src="../favicon.ico" alt="logo" width=100 height=100/>
+		<img class="logo" src="../logo.svg" alt="logo" width=100 height=100/>
 		<nav>
 			<ul class="nav__links">
 				<li><a href="mainpage.php">Home&nbsp;</a></li>
@@ -40,12 +40,12 @@
 
 <br><br>
 
-<b>-- Latest gigs --</b><br><br>
-
-<?php
-	listgig(5, $db);
-	$db->close();
-?>
-
+<div class="container"> 
+	<b>-- Latest gigs --</b><br><br>
+	<?php
+		listgig(5, $db);
+		$db->close();
+	?>
+</div>
 </body>
 </html>

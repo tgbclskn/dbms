@@ -22,7 +22,7 @@
 
 <body>
 <header>
-		<img class="logo" src="../favicon.ico" alt="logo" width=100 height=100/>
+		<img class="logo" src="../logo.svg" alt="logo" width=100 height=100/>
 		<nav>
 			<ul class="nav__links">
 				<li><a href="mainpage.php">Home&nbsp;</a></li>
@@ -35,9 +35,8 @@
 		</nav>
 		<a href="../func/logout.php">Log out&nbsp;</a>
 	</header>
-</body>
-
-<h4>-Order Detail-</h4>
+	<div class="container">
+	<h4>-Order Detail-</h4>
 
 <?php
 	
@@ -106,3 +105,7 @@
 	
 	$db->close();
 ?>
+	</div>
+</body>
+
+
